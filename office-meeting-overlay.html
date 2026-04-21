@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Office Meeting Overlay</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Allura&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Allura&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
 html, body{
@@ -17,361 +17,192 @@ html, body{
   font-family:'Inter', Arial, sans-serif;
 }
 
-/* =========================
-   EASY EDIT CONTROLS
-========================= */
 :root{
-  --bar-width: 88%;
-  --bar-max-width: 1280px;
-  --bar-height: 118px;
-  --bar-bottom: 3.8%;
+  --bar-width: 84%;
+  --bar-max-width: 1180px;
+  --bar-height: 74px;
+  --bar-bottom: 4%;
 
-  --glass-bg: rgba(82, 67, 48, 0.44);
-  --glass-bg-2: rgba(255, 255, 255, 0.05);
-  --glass-border: rgba(255,255,255,0.12);
-  --shadow: 0 10px 35px rgba(0,0,0,0.20);
-
+  --bar-bg: rgba(92, 72, 45, 0.34);
+  --bar-border: rgba(255,255,255,0.08);
   --text-main: #ffffff;
-  --text-soft: rgba(255,255,255,0.88);
-  --text-muted: rgba(255,255,255,0.72);
+  --text-soft: rgba(255,255,255,0.90);
+  --gold: #c8a14a;
 
-  --gold: #caa24c;
-  --gold-soft: rgba(202,162,76,0.28);
-
-  --host-name-size: 28px;
-  --host-title-size: 11px;
-  --host-subtitle-size: 14px;
-
-  --meeting-title-size: 28px;
-  --speaker-size: 16px;
-
-  --logo-max-height: 72px;
-
-  --divider-width: 2px;
-  --divider-height: 62px;
-
-  --corner-radius: 22px;
-  --side-padding: 26px;
-  --column-gap: 22px;
+  --left-width: 255px;
+  --right-width: 165px;
 }
 
-/* =========================
-   WRAP
-========================= */
-.overlay-wrap{
+.overlay{
   position:fixed;
   left:50%;
   bottom:var(--bar-bottom);
   transform:translateX(-50%);
   width:var(--bar-width);
   max-width:var(--bar-max-width);
-  pointer-events:none;
-  animation: overlayIn 900ms cubic-bezier(.2,.8,.2,1);
-}
-
-.overlay-bar{
-  position:relative;
-  min-height:var(--bar-height);
-  box-sizing:border-box;
-  padding:18px var(--side-padding);
+  height:var(--bar-height);
 
   display:grid;
-  grid-template-columns: 300px var(--divider-width) 1fr 220px;
+  grid-template-columns: var(--left-width) 2px 1fr var(--right-width);
   align-items:center;
-  column-gap:var(--column-gap);
+  column-gap:18px;
 
-  border-radius:var(--corner-radius);
-  overflow:hidden;
+  padding:0 22px;
+  box-sizing:border-box;
 
-  background:
-    linear-gradient(135deg, rgba(255,255,255,0.10), rgba(255,255,255,0.02)),
-    linear-gradient(180deg, var(--glass-bg-2), rgba(255,255,255,0.01)),
-    var(--glass-bg);
+  border-radius:16px;
+  background:var(--bar-bg);
+  border:1px solid var(--bar-border);
 
-  border:1px solid var(--glass-border);
+  -webkit-backdrop-filter: blur(12px) saturate(120%);
+  backdrop-filter: blur(12px) saturate(120%);
 
-  -webkit-backdrop-filter: blur(16px) saturate(130%);
-  backdrop-filter: blur(16px) saturate(130%);
-
-  box-shadow: var(--shadow);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.16);
 }
 
-/* soft top sheen */
-.overlay-bar::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:linear-gradient(
-    180deg,
-    rgba(255,255,255,0.13) 0%,
-    rgba(255,255,255,0.04) 18%,
-    rgba(255,255,255,0.00) 42%
-  );
-  pointer-events:none;
-}
-
-/* subtle gold glow */
-.overlay-bar::after{
-  content:"";
-  position:absolute;
-  left:0;
-  right:0;
-  bottom:0;
-  height:2px;
-  background:linear-gradient(90deg,
-    rgba(202,162,76,0.00) 0%,
-    rgba(202,162,76,0.55) 18%,
-    rgba(202,162,76,0.90) 50%,
-    rgba(202,162,76,0.55) 82%,
-    rgba(202,162,76,0.00) 100%);
-  pointer-events:none;
-}
-
-/* =========================
-   LEFT BLOCK
-========================= */
-.left-block{
+/* LEFT */
+.left{
+  min-width:0;
   display:flex;
   flex-direction:column;
   justify-content:center;
-  min-width:0;
-  position:relative;
-  z-index:2;
 }
 
 .host-name{
   font-family:'Allura', cursive;
-  font-size:var(--host-name-size);
+  font-size:20px;
   line-height:0.95;
   color:var(--text-main);
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
-  margin-bottom:7px;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.18);
-}
-
-.host-title{
-  font-size:var(--host-title-size);
-  line-height:1.2;
-  font-weight:700;
-  letter-spacing:.18em;
-  text-transform:uppercase;
-  color:var(--gold);
   margin-bottom:4px;
   white-space:nowrap;
   overflow:hidden;
   text-overflow:ellipsis;
 }
 
-.host-subtitle{
-  font-size:var(--host-subtitle-size);
-  line-height:1.25;
-  font-weight:500;
+.host-role{
+  font-size:11px;
+  line-height:1.1;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--text-soft);
+  margin-bottom:2px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.host-company{
+  font-size:11px;
+  line-height:1.1;
   color:var(--text-soft);
   white-space:nowrap;
   overflow:hidden;
   text-overflow:ellipsis;
 }
 
-/* =========================
-   DIVIDER
-========================= */
-.gold-divider{
-  width:var(--divider-width);
-  height:var(--divider-height);
-  justify-self:center;
-  align-self:center;
+/* DIVIDER */
+.divider{
+  width:2px;
+  height:42px;
+  background:var(--gold);
   border-radius:999px;
-  background:linear-gradient(
-    180deg,
-    rgba(202,162,76,0.12) 0%,
-    rgba(202,162,76,1) 48%,
-    rgba(202,162,76,0.12) 100%
-  );
-  box-shadow: 0 0 16px var(--gold-soft);
-  position:relative;
-  z-index:2;
+  justify-self:center;
 }
 
-/* =========================
-   CENTER BLOCK
-========================= */
-.center-block{
+/* CENTER */
+.center{
+  min-width:0;
   display:flex;
   flex-direction:column;
   justify-content:center;
-  min-width:0;
-  position:relative;
-  z-index:2;
 }
 
-.meeting-kicker{
-  font-size:11px;
-  line-height:1;
-  font-weight:700;
-  letter-spacing:.18em;
-  text-transform:uppercase;
-  color:var(--text-muted);
-  margin-bottom:8px;
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
-}
-
-.meeting-title{
-  font-size:var(--meeting-title-size);
+.line1{
+  font-size:20px;
   line-height:1.05;
-  font-weight:800;
+  font-weight:600;
   color:var(--text-main);
-  margin-bottom:8px;
   white-space:nowrap;
   overflow:hidden;
   text-overflow:ellipsis;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.15);
+  margin-bottom:4px;
 }
 
-.guest-row{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  min-width:0;
-}
-
-.guest-label{
-  flex:0 0 auto;
+.line2{
   font-size:11px;
-  line-height:1;
-  font-weight:700;
-  letter-spacing:.15em;
-  text-transform:uppercase;
-  color:var(--gold);
-  padding:7px 9px 6px;
-  border:1px solid rgba(202,162,76,0.28);
-  border-radius:999px;
-  background:rgba(202,162,76,0.10);
-}
-
-.guest-speaker{
-  min-width:0;
-  font-size:var(--speaker-size);
-  line-height:1.2;
-  font-weight:500;
+  line-height:1.1;
   color:var(--text-soft);
   white-space:nowrap;
   overflow:hidden;
   text-overflow:ellipsis;
 }
 
-/* =========================
-   RIGHT BLOCK
-========================= */
-.right-block{
+/* RIGHT */
+.right{
   display:flex;
-  align-items:center;
   justify-content:flex-end;
-  min-width:0;
-  position:relative;
-  z-index:2;
-}
-
-.logo-shell{
-  display:flex;
   align-items:center;
-  justify-content:center;
-  width:100%;
+  min-width:0;
 }
 
-.logo-shell img{
+.right img{
   display:block;
   max-width:100%;
-  max-height:var(--logo-max-height);
+  max-height:50px;
   object-fit:contain;
-  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.18));
 }
 
-/* =========================
-   VERSION TAG
-========================= */
-.version-tag{
-  position:absolute;
-  right:14px;
-  bottom:9px;
+/* VERSION */
+.version{
+  position:fixed;
+  right:10px;
+  bottom:8px;
   font-size:10px;
-  line-height:1;
-  letter-spacing:.12em;
-  text-transform:uppercase;
-  color:rgba(255,255,255,0.42);
-  z-index:3;
-  user-select:none;
+  color:rgba(255,255,255,0.35);
+  display:none;
 }
 
-/* =========================
-   ANIMATION
-========================= */
-@keyframes overlayIn{
-  from{
-    opacity:0;
-    transform:translateX(-50%) translateY(14px);
-  }
-  to{
-    opacity:1;
-    transform:translateX(-50%) translateY(0);
-  }
-}
-
-/* =========================
-   RESPONSIVE
-========================= */
-@media (max-width: 1180px){
+/* TABLET */
+@media (max-width: 1024px){
   :root{
-    --bar-width: 91%;
-    --bar-height: 110px;
-    --host-name-size: 24px;
-    --meeting-title-size: 24px;
-    --speaker-size: 15px;
-    --logo-max-height: 62px;
+    --bar-width: 90%;
+    --left-width: 225px;
+    --right-width: 140px;
   }
 
-  .overlay-bar{
-    grid-template-columns: 260px var(--divider-width) 1fr 180px;
-  }
+  .line1{ font-size:18px; }
+  .host-name{ font-size:18px; }
+  .right img{ max-height:42px; }
 }
 
-@media (max-width: 860px){
+/* PHONE */
+@media (max-width: 760px){
   :root{
     --bar-width: 94%;
     --bar-height: auto;
-    --side-padding: 18px;
-    --column-gap: 14px;
   }
 
-  .overlay-bar{
+  .overlay{
     grid-template-columns: 1fr;
-    row-gap:12px;
-    padding-top:16px;
-    padding-bottom:18px;
+    row-gap:8px;
+    height:auto;
+    padding:12px 16px;
   }
 
-  .gold-divider{
+  .divider{
     display:none;
   }
 
-  .right-block{
+  .right{
     justify-content:flex-start;
   }
 
   .host-name,
-  .host-title,
-  .host-subtitle,
-  .meeting-kicker,
-  .meeting-title,
-  .guest-speaker{
+  .host-role,
+  .host-company,
+  .line1,
+  .line2{
     white-space:normal;
-  }
-
-  .guest-row{
-    flex-wrap:wrap;
   }
 }
 </style>
@@ -379,76 +210,45 @@ html, body{
 <body>
 
 <script>
-/* =========================
-   MASTER EDIT PANEL
-   CHANGE THESE ONLY
-========================= */
-const VERSION = "v101";
+/* EDIT ONLY THIS SECTION */
+const VERSION = "999";
 
 const HOST_NAME = "Tabitha Tittle";
-const HOST_TITLE = "QUALIFYING BROKER";
-const HOST_SUBTITLE = "Leading Edge Real Estate Group";
+const HOST_ROLE = "Qualifying Broker";
+const HOST_COMPANY = "Leading Edge Real Estate Group";
 
-const MEETING_KICKER = "Leadership Meeting";
-const MEETING_TITLE = "Office Meeting";
-const GUEST_SPEAKER = "Add Guest Speaker Name Here";
+const MAIN_LINE = "Office Meeting • Guest Speaker";
+const SECOND_LINE = "Add Speaker Name Here";
 
 const LOGO_FILE = "OMLE.png";
-
-/* show or hide small version text in bottom-right corner */
 const SHOW_VERSION = false;
 </script>
 
-<div class="overlay-wrap">
-  <div class="overlay-bar">
-    
-    <div class="left-block">
-      <div class="host-name" id="hostName"></div>
-      <div class="host-title" id="hostTitle"></div>
-      <div class="host-subtitle" id="hostSubtitle"></div>
-    </div>
+<div class="overlay">
+  <div class="left">
+    <div class="host-name" id="hostName"></div>
+    <div class="host-role" id="hostRole"></div>
+    <div class="host-company" id="hostCompany"></div>
+  </div>
 
-    <div class="gold-divider"></div>
+  <div class="divider"></div>
 
-    <div class="center-block">
-      <div class="meeting-kicker" id="meetingKicker"></div>
-      <div class="meeting-title" id="meetingTitle"></div>
-      <div class="guest-row">
-        <div class="guest-label">Guest Speaker</div>
-        <div class="guest-speaker" id="guestSpeaker"></div>
-      </div>
-    </div>
+  <div class="center">
+    <div class="line1" id="mainLine"></div>
+    <div class="line2" id="secondLine"></div>
+  </div>
 
-    <div class="right-block">
-      <div class="logo-shell">
-        <img id="companyLogo" src="" alt="Company Logo">
-      </div>
-    </div>
-
-    <div class="version-tag" id="versionTag"></div>
+  <div class="right">
+    <img id="logo" src="" alt="Logo">
   </div>
 </div>
 
+<div class="version" id="versionText"></div>
+
 <script>
 document.getElementById("hostName").textContent = HOST_NAME;
-document.getElementById("hostTitle").textContent = HOST_TITLE;
-document.getElementById("hostSubtitle").textContent = HOST_SUBTITLE;
-
-document.getElementById("meetingKicker").textContent = MEETING_KICKER;
-document.getElementById("meetingTitle").textContent = MEETING_TITLE;
-document.getElementById("guestSpeaker").textContent = GUEST_SPEAKER;
-
-/* cache-busting logo load */
-document.getElementById("companyLogo").src = LOGO_FILE + "?v=" + VERSION;
-
-/* optional visible version */
-const versionTag = document.getElementById("versionTag");
-if (SHOW_VERSION) {
-  versionTag.textContent = VERSION;
-} else {
-  versionTag.style.display = "none";
-}
-</script>
-
-</body>
-</html>
+document.getElementById("hostRole").textContent = HOST_ROLE;
+document.getElementById("hostCompany").textContent = HOST_COMPANY;
+document.getElementById("mainLine").textContent = MAIN_LINE;
+document.getElementById("secondLine").textContent = SECOND_LINE;
+document.getElementById("logo").src = LOGO_FILE + "?v=" + VERSION;
