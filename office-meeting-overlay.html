@@ -17,23 +17,34 @@ html, body{
   font-family:'Inter', Arial, sans-serif;
 }
 
+/* =========================
+   EASY EDIT SECTION
+   Change only these values
+========================= */
 :root{
-  --bar-width: 84%;
-  --bar-max-width: 1180px;
-  --bar-height: 74px;
+  --bar-width: 86%;
+  --bar-max-width: 1120px;
+  --bar-height: 82px;
   --bar-bottom: 4%;
 
-  --bar-bg: rgba(92, 72, 45, 0.34);
+  --bar-bg: rgba(96, 80, 58, 0.34);
   --bar-border: rgba(255,255,255,0.08);
+  --bar-shadow: 0 8px 24px rgba(0,0,0,0.16);
+
   --text-main: #ffffff;
   --text-soft: rgba(255,255,255,0.90);
-  --gold: #c8a14a;
+  --gold: #c9a24a;
 
-  --left-width: 255px;
-  --right-width: 165px;
+  --left-width: 270px;
+  --right-width: 150px;
+  --divider-height: 46px;
+  --logo-height: 54px;
 }
 
-.overlay{
+/* =========================
+   MAIN BAR
+========================= */
+.overlay-bar{
   position:fixed;
   left:50%;
   bottom:var(--bar-bottom);
@@ -51,17 +62,18 @@ html, body{
   box-sizing:border-box;
 
   border-radius:16px;
-  background:var(--bar-bg);
   border:1px solid var(--bar-border);
+  background:var(--bar-bg);
+  box-shadow:var(--bar-shadow);
 
   -webkit-backdrop-filter: blur(12px) saturate(120%);
   backdrop-filter: blur(12px) saturate(120%);
-
-  box-shadow: 0 8px 24px rgba(0,0,0,0.16);
 }
 
-/* LEFT */
-.left{
+/* =========================
+   LEFT
+========================= */
+.left-block{
   min-width:0;
   display:flex;
   flex-direction:column;
@@ -70,7 +82,7 @@ html, body{
 
 .host-name{
   font-family:'Allura', cursive;
-  font-size:20px;
+  font-size:22px;
   line-height:0.95;
   color:var(--text-main);
   margin-bottom:4px;
@@ -84,15 +96,15 @@ html, body{
   line-height:1.1;
   letter-spacing:.16em;
   text-transform:uppercase;
-  color:var(--text-soft);
-  margin-bottom:2px;
+  color:var(--gold);
+  margin-bottom:3px;
   white-space:nowrap;
   overflow:hidden;
   text-overflow:ellipsis;
 }
 
 .host-company{
-  font-size:11px;
+  font-size:12px;
   line-height:1.1;
   color:var(--text-soft);
   white-space:nowrap;
@@ -100,36 +112,40 @@ html, body{
   text-overflow:ellipsis;
 }
 
-/* DIVIDER */
-.divider{
+/* =========================
+   GOLD DIVIDER
+========================= */
+.gold-divider{
   width:2px;
-  height:42px;
+  height:var(--divider-height);
   background:var(--gold);
   border-radius:999px;
   justify-self:center;
 }
 
-/* CENTER */
-.center{
+/* =========================
+   CENTER
+========================= */
+.center-block{
   min-width:0;
   display:flex;
   flex-direction:column;
   justify-content:center;
 }
 
-.line1{
-  font-size:20px;
+.meeting-title{
+  font-size:22px;
   line-height:1.05;
-  font-weight:600;
+  font-weight:700;
   color:var(--text-main);
+  margin-bottom:5px;
   white-space:nowrap;
   overflow:hidden;
   text-overflow:ellipsis;
-  margin-bottom:4px;
 }
 
-.line2{
-  font-size:11px;
+.guest-line{
+  font-size:13px;
   line-height:1.1;
   color:var(--text-soft);
   white-space:nowrap;
@@ -137,71 +153,71 @@ html, body{
   text-overflow:ellipsis;
 }
 
-/* RIGHT */
-.right{
+.guest-label{
+  color:var(--gold);
+  font-weight:600;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+
+/* =========================
+   RIGHT
+========================= */
+.right-block{
   display:flex;
-  justify-content:flex-end;
   align-items:center;
+  justify-content:flex-end;
   min-width:0;
 }
 
-.right img{
+.right-block img{
   display:block;
   max-width:100%;
-  max-height:50px;
+  max-height:var(--logo-height);
   object-fit:contain;
 }
 
-/* VERSION */
-.version{
-  position:fixed;
-  right:10px;
-  bottom:8px;
-  font-size:10px;
-  color:rgba(255,255,255,0.35);
-  display:none;
-}
-
-/* TABLET */
-@media (max-width: 1024px){
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 1000px){
   :root{
-    --bar-width: 90%;
-    --left-width: 225px;
-    --right-width: 140px;
+    --bar-width: 92%;
+    --left-width: 230px;
+    --right-width: 120px;
+    --logo-height: 46px;
   }
 
-  .line1{ font-size:18px; }
-  .host-name{ font-size:18px; }
-  .right img{ max-height:42px; }
+  .host-name{ font-size:19px; }
+  .meeting-title{ font-size:19px; }
 }
 
-/* PHONE */
 @media (max-width: 760px){
   :root{
     --bar-width: 94%;
     --bar-height: auto;
   }
 
-  .overlay{
+  .overlay-bar{
     grid-template-columns: 1fr;
     row-gap:8px;
     height:auto;
     padding:12px 16px;
   }
 
-  .divider{
+  .gold-divider{
     display:none;
   }
 
-  .right{
+  .right-block{
     justify-content:flex-start;
   }
 
   .host-name,
   .host-role,
   .host-company,
-  .line1,
-  .line2{
+  .meeting-title,
+  .guest-line{
     white-space:normal;
   }
 }
@@ -209,46 +225,24 @@ html, body{
 </head>
 <body>
 
-<script>
-/* EDIT ONLY THIS SECTION */
-const VERSION = "999";
-
-const HOST_NAME = "Tabitha Tittle";
-const HOST_ROLE = "Qualifying Broker";
-const HOST_COMPANY = "Leading Edge Real Estate Group";
-
-const MAIN_LINE = "Office Meeting • Guest Speaker";
-const SECOND_LINE = "Add Speaker Name Here";
-
-const LOGO_FILE = "OMLE.png";
-const SHOW_VERSION = false;
-</script>
-
-<div class="overlay">
-  <div class="left">
-    <div class="host-name" id="hostName"></div>
-    <div class="host-role" id="hostRole"></div>
-    <div class="host-company" id="hostCompany"></div>
+<div class="overlay-bar">
+  <div class="left-block">
+    <div class="host-name">Tabitha Tittle</div>
+    <div class="host-role">Qualifying Broker</div>
+    <div class="host-company">Leading Edge Real Estate Group</div>
   </div>
 
-  <div class="divider"></div>
+  <div class="gold-divider"></div>
 
-  <div class="center">
-    <div class="line1" id="mainLine"></div>
-    <div class="line2" id="secondLine"></div>
+  <div class="center-block">
+    <div class="meeting-title">Office Meeting</div>
+    <div class="guest-line"><span class="guest-label">Guest Speaker:</span> Add Name Here</div>
   </div>
 
-  <div class="right">
-    <img id="logo" src="" alt="Logo">
+  <div class="right-block">
+    <img src="OMLE.png?v=999" alt="Leading Edge Logo">
   </div>
 </div>
 
-<div class="version" id="versionText"></div>
-
-<script>
-document.getElementById("hostName").textContent = HOST_NAME;
-document.getElementById("hostRole").textContent = HOST_ROLE;
-document.getElementById("hostCompany").textContent = HOST_COMPANY;
-document.getElementById("mainLine").textContent = MAIN_LINE;
-document.getElementById("secondLine").textContent = SECOND_LINE;
-document.getElementById("logo").src = LOGO_FILE + "?v=" + VERSION;
+</body>
+</html>
