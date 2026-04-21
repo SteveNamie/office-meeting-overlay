@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Office Meeting Overlay</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Allura&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+html, body{
+  margin:0;
+  width:100%;
+  height:100%;
+  background:transparent;
+  overflow:hidden;
+  font-family:'Inter', Arial, sans-serif;
+}
+
+:root{
+  --bar-width: 86%;
+  --bar-max-width: 1180px;
+  --bar-height: 92px;
+
+  --glass-bg: rgba(70, 52, 30, 0.42);
+  --glass-border: rgba(255,255,255,0.10);
+  --text-main: #ffffff;
+  --text-soft: rgba(255,255,255,0.88);
+  --gold: #c9a24a;
+}
+
+/* MAIN BAR */
+.overlay-bar{
+  position:fixed;
+  left:50%;
+  bottom:3.5%;
+  transform:translateX(-50%);
+  width:var(--bar-width);
+  max-width:var(--bar-max-width);
+  min-height:var(--bar-height);
+
+  display:grid;
+  grid-template-columns: 300px 2px 1fr 215px;
+  align-items:center;
+  column-gap:18px;
+
+  padding:16px 22px;
+  box-sizing:border-box;
+
+  background:var(--glass-bg);
+  border:1px solid var(--glass-border);
+  border-radius:18px;
+
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+
+  box-shadow: 0 8px 30px rgba(0,0,0,0.18);
+}
+
+/* LEFT SIDE */
+.left-block{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  min-width:0;
+}
+
+.host-name{
+  font-family:'Allura', cursive;
+  font-size:24px;
+  line-height:1;
+  color:var(--text-main);
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  margin-bottom:6px;
+}
+
+.host-title{
+  font-size:13px;
+  line-height:1.25;
+  color:var(--text-soft);
+  letter-spacing:.04em;
+  text-transform:uppercase;
+}
+
+.host-subtitle{
+  font-size:14px;
+  line-height:1.25;
+  color:var(--text-soft);
+  margin-top:3px;
+}
+
+/* GOLD DIVIDER */
+.gold-divider{
+  width:2px;
+  height:54px;
+  background:var(--gold);
+  border-radius:2px;
+  justify-self:center;
+}
+
+/* CENTER */
+.center-block{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  min-width:0;
+}
+
+.meeting-title{
+  font-size:30px;
+  line-height:1.05;
+  font-weight:600;
+  color:var(--text-main);
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  margin-bottom:7px;
+}
+
+.guest-speaker{
+  font-size:18px;
+  line-height:1.2;
+  color:var(--text-soft);
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+/* RIGHT LOGO AREA */
+.right-block{
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+  min-width:0;
+}
+
+.right-block img{
+  max-width:100%;
+  max-height:62px;
+  object-fit:contain;
+  display:block;
+}
+
+/* RESPONSIVE */
+@media (max-width: 1100px){
+  .overlay-bar{
+    grid-template-columns: 250px 2px 1fr 180px;
+    padding:14px 18px;
+  }
+
+  .meeting-title{
+    font-size:26px;
+  }
+
+  .guest-speaker{
+    font-size:16px;
+  }
+
+  .host-name{
+    font-size:21px;
+  }
+}
+
+@media (max-width: 860px){
+  .overlay-bar{
+    width:92%;
+    grid-template-columns: 1fr;
+    row-gap:10px;
+    padding:14px 16px;
+  }
+
+  .gold-divider{
+    display:none;
+  }
+
+  .right-block{
+    justify-content:flex-start;
+  }
+
+  .meeting-title,
+  .guest-speaker,
+  .host-name{
+    white-space:normal;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="overlay-bar">
+  <!-- LEFT -->
+  <div class="left-block">
+    <div class="host-name" id="hostName">Tabitha Tittle</div>
+    <div class="host-title" id="hostTitle">QUALIFYING BROKER</div>
+    <div class="host-subtitle" id="hostSubtitle">Leading Edge Real Estate Group</div>
+  </div>
+
+  <!-- GOLD BAR -->
+  <div class="gold-divider"></div>
+
+  <!-- CENTER -->
+  <div class="center-block">
+    <div class="meeting-title" id="meetingTitle">Office Meeting</div>
+    <div class="guest-speaker" id="guestSpeaker">Guest Speaker: Add Name Here</div>
+  </div>
+
+  <!-- RIGHT -->
+  <div class="right-block">
+    <img id="companyLogo" src="leading-edge-logo.png" alt="Company Logo">
+  </div>
+</div>
+
+</body>
+</html>
