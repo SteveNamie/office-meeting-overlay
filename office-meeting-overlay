@@ -208,7 +208,7 @@ html, body{
 
   <!-- RIGHT -->
   <div class="right-block">
-    <img id="companyLogo" src="leading-edge-logo.png" alt="Company Logo">
+    <img id="companyLogo" src="OMLE.png" alt="Company Logo">
   </div>
 </div>
 
