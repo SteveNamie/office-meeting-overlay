@@ -8,389 +8,197 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Office Meeting Overlay</title>
-
 <link href="https://fonts.googleapis.com/css2?family=Allura&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
 
 html, body {
 
-  margin: 0;
+  margin:0;
 
-  width: 100%;
+  width:100%;
 
-  height: 100%;
+  height:100%;
 
-  background: transparent;
+  background:transparent;
 
-  overflow: hidden;
+  overflow:hidden;
 
-  font-family: 'Inter', Arial, sans-serif;
+  font-family:'Inter', Arial, sans-serif;
 
 }
 
 .overlay-bar {
 
-  position: fixed;
+  position:fixed;
 
-  left: 50%;
+  left:50%;
 
-  bottom: 3%;
+  bottom:3%;
 
-  transform: translateX(-50%);
+  transform:translateX(-50%);
 
-  width: 88%;
+  width:88%;
 
-  max-width: 1380px;
+  max-width:1400px;
 
-  height: 74px;
+  height:70px;
 
-  padding: 0 340px 0 16px;
+  padding:0 18px;
 
-  box-sizing: border-box;
+  display:grid;
 
-  display: grid;
+  grid-template-columns:240px 2px 1fr;
 
-  grid-template-columns: 240px 2px 1fr;
+  align-items:center;
 
-  align-items: center;
+  column-gap:14px;
 
-  column-gap: 14px;
-
-  border-radius: 18px;
+  border-radius:18px;
 
   background: rgba(20,20,24,0.18);
 
-  border: 1px solid rgba(255,255,255,0.14);
+  border:1px solid rgba(255,255,255,0.14);
 
-  -webkit-backdrop-filter: blur(18px) saturate(130%);
+  -webkit-backdrop-filter: blur(18px);
 
-  backdrop-filter: blur(18px) saturate(130%);
+  backdrop-filter: blur(18px);
 
-  box-shadow: 0 10px 26px rgba(0,0,0,0.18);
+  box-shadow:0 10px 26px rgba(0,0,0,0.18);
 
-  overflow: visible;
-
-}
-
-.overlay-bar::before {
-
-  content: "";
-
-  position: absolute;
-
-  inset: 0;
-
-  border-radius: 18px;
-
-  background: linear-gradient(
-
-    180deg,
-
-    rgba(255,255,255,0.08) 0%,
-
-    rgba(255,255,255,0.02) 30%,
-
-    rgba(255,255,255,0.00) 65%
-
-  );
-
-  pointer-events: none;
+  overflow:visible;
 
 }
 
-.left-block {
+/* LEFT */
 
-  min-width: 0;
+.left-block{
 
-  display: flex;
+  display:flex;
 
-  flex-direction: column;
+  flex-direction:column;
 
-  justify-content: center;
+  justify-content:center;
 
-  position: relative;
-
-  z-index: 2;
+  z-index:2;
 
 }
 
-.host-name {
+.host-name{
 
-  font-family: 'Allura', cursive;
+  font-family:'Allura', cursive;
 
-  font-size: 28px;
+  font-size:28px;
 
-  line-height: 0.95;
-
-  color: #fff;
-
-  margin-bottom: 2px;
-
-  white-space: nowrap;
-
-  overflow: hidden;
-
-  text-overflow: ellipsis;
+  color:#fff;
 
 }
 
-.host-role {
+.host-role{
 
-  font-size: 10px;
+  font-size:10px;
 
-  line-height: 1.05;
+  letter-spacing:.15em;
 
-  letter-spacing: .14em;
+  text-transform:uppercase;
 
-  text-transform: uppercase;
-
-  font-weight: 700;
-
-  color: #fff;
-
-  margin-bottom: 2px;
-
-  white-space: nowrap;
-
-  overflow: hidden;
-
-  text-overflow: ellipsis;
+  color:#fff;
 
 }
 
-.host-company {
+.host-company{
 
-  font-size: 11px;
+  font-size:11px;
 
-  line-height: 1.05;
-
-  color: rgba(255,255,255,0.88);
-
-  white-space: nowrap;
-
-  overflow: hidden;
-
-  text-overflow: ellipsis;
+  color:rgba(255,255,255,0.85);
 
 }
 
-.divider {
+/* DIVIDER */
 
-  width: 2px;
+.divider{
 
-  height: 40px;
+  width:2px;
 
-  background: #c9a24a;
+  height:38px;
 
-  border-radius: 999px;
-
-  justify-self: center;
-
-  position: relative;
-
-  z-index: 2;
+  background:#c9a24a;
 
 }
 
-.center-block {
+/* CENTER */
 
-  min-width: 0;
+.center-block{
 
-  display: flex;
+  display:flex;
 
-  flex-direction: column;
+  flex-direction:column;
 
-  justify-content: center;
+  justify-content:center;
 
-  position: relative;
-
-  z-index: 2;
+  z-index:2;
 
 }
 
-.meeting-title {
+.meeting-title{
 
-  font-size: 21px;
+  font-size:20px;
 
-  line-height: 1;
+  font-weight:800;
 
-  font-weight: 800;
-
-  color: #fff;
-
-  margin-bottom: 3px;
-
-  white-space: nowrap;
-
-  overflow: hidden;
-
-  text-overflow: ellipsis;
+  color:#fff;
 
 }
 
-.guest-line {
+.guest-line{
 
-  font-size: 12px;
+  font-size:12px;
 
-  line-height: 1.05;
-
-  color: rgba(255,255,255,0.92);
-
-  white-space: nowrap;
-
-  overflow: hidden;
-
-  text-overflow: ellipsis;
+  color:#fff;
 
 }
 
-.guest-label {
+.guest-label{
 
-  color: #c9a24a;
+  color:#c9a24a;
 
-  font-weight: 800;
-
-  letter-spacing: .03em;
-
-  text-transform: uppercase;
+  font-weight:700;
 
 }
 
-/* HUGE LOGO - no grid constraints */
+/* 🔥 MASSIVE LOGO */
 
-.logo-wrap {
+.logo-wrap{
 
-  position: absolute;
+  position:absolute;
 
-  right: 8px;
+  right:-40px;   /* pushes it OUTSIDE the bar */
 
-  top: 50%;
+  bottom:-40px;  /* lets it hang lower */
 
-  transform: translateY(-50%);
-
-  width: 330px;
-
-  height: 220px;
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: flex-end;
-
-  z-index: 3;
-
-  overflow: visible;
+  z-index:5;
 
 }
 
-.logo-wrap img {
+.logo-wrap img{
 
-  display: block;
+  height:320px;   /* 🔥 BIG */
 
-  height: 220px;
+  width:auto;
 
-  width: auto;
+  max-width:none;
 
-  max-width: none;
-
-  max-height: none;
-
-  object-fit: contain;
+  max-height:none;
 
 }
 
-/* tablet */
+/* responsive */
 
-@media (max-width: 1100px) {
+@media (max-width:900px){
 
-  .overlay-bar {
+  .logo-wrap img{
 
-    width: 92%;
-
-    padding: 0 220px 0 14px;
-
-    grid-template-columns: 210px 2px 1fr;
-
-  }
-
-  .host-name { font-size: 24px; }
-
-  .meeting-title { font-size: 18px; }
-
-  .logo-wrap {
-
-    width: 210px;
-
-    height: 140px;
-
-  }
-
-  .logo-wrap img {
-
-    height: 140px;
-
-  }
-
-}
-
-/* phone */
-
-@media (max-width: 760px) {
-
-  .overlay-bar {
-
-    width: 94%;
-
-    height: auto;
-
-    padding: 12px 16px;
-
-    grid-template-columns: 1fr;
-
-    row-gap: 8px;
-
-  }
-
-  .divider {
-
-    display: none;
-
-  }
-
-  .logo-wrap {
-
-    position: static;
-
-    transform: none;
-
-    width: auto;
-
-    height: auto;
-
-    justify-content: flex-start;
-
-  }
-
-  .logo-wrap img {
-
-    height: 80px;
-
-  }
-
-  .host-name,
-
-  .host-role,
-
-  .host-company,
-
-  .meeting-title,
-
-  .guest-line {
-
-    white-space: normal;
+    height:180px;
 
   }
 
@@ -420,13 +228,17 @@ html, body {
 
     <div class="meeting-title">Office Meeting</div>
 
-    <div class="guest-line"><span class="guest-label">GUEST SPEAKER:</span> Add Name Here</div>
+    <div class="guest-line">
+
+      <span class="guest-label">GUEST SPEAKER:</span> Add Name Here
+
+    </div>
 
   </div>
 
   <div class="logo-wrap">
 
-    <img src="OMLE.png?v=991" alt="Leading Edge Logo">
+    <img src="OMLE.png?v=990">
 
   </div>
 
