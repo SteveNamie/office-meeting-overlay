@@ -1,294 +1,283 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Office Meeting Overlay</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Allura&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Allura&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
-html, body{
+
+html, body {
+
   margin:0;
+
   width:100%;
+
   height:100%;
+
   background:transparent;
+
   overflow:hidden;
+
   font-family:'Inter', Arial, sans-serif;
+
 }
 
-:root{
-  --bar-width: 92%;
-  --bar-max-width: 1650px;
-  --bar-height: 230px;
-  --bar-bottom: 4.5%;
+/* =========================
 
-  --bar-bg: rgba(22,22,24,0.46);
-  --bar-border: rgba(255,255,255,0.20);
-  --bar-shadow: 0 18px 40px rgba(0,0,0,0.28);
+   BAR SETTINGS
 
-  --white: #ffffff;
-  --white-soft: rgba(255,255,255,0.94);
-  --gold: #d0a23e;
+========================= */
 
-  --left-width: 560px;
-  --divider-width: 6px;
-  --divider-height: 130px;
-  --right-width: 470px;
-  --logo-height: 190px;
-}
+.overlay-bar {
 
-html::before{
-  content:"";
   position:fixed;
-  inset:0;
-  background:transparent;
-  pointer-events:none;
-}
 
-.overlay-bar{
-  position:fixed;
   left:50%;
-  bottom:var(--bar-bottom);
+
+  bottom:3%;
+
   transform:translateX(-50%);
-  width:var(--bar-width);
-  max-width:var(--bar-max-width);
-  min-height:var(--bar-height);
-  box-sizing:border-box;
+
+  width:88%;
+
+  max-width:1200px;
+
+  height:70px; /* 🔥 SHORT BAR */
 
   display:grid;
-  grid-template-columns: var(--left-width) var(--divider-width) 1fr var(--right-width);
+
+  grid-template-columns: 260px 2px 1fr 260px;
+
   align-items:center;
-  column-gap:42px;
 
-  padding: 26px 42px;
-  border-radius: 34px;
-  overflow:hidden;
+  column-gap:14px;
 
-  background:
-    linear-gradient(180deg, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0.02) 18%, rgba(255,255,255,0.00) 45%),
-    rgba(22,22,24,0.46);
+  padding:0 16px;
 
-  border:1px solid var(--bar-border);
-  box-shadow: var(--bar-shadow);
+  border-radius:16px;
 
-  -webkit-backdrop-filter: blur(24px) saturate(135%);
-  backdrop-filter: blur(24px) saturate(135%);
+  /* 🔥 DARK FROSTED */
+
+  background: rgba(20,20,24,0.28);
+
+  border:1px solid rgba(255,255,255,0.12);
+
+  -webkit-backdrop-filter: blur(16px);
+
+  backdrop-filter: blur(16px);
+
+  box-shadow: 0 8px 24px rgba(0,0,0,0.20);
+
 }
 
-.overlay-bar::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  border-radius:34px;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.12);
-  pointer-events:none;
-}
+/* =========================
 
-/* LEFT */
+   LEFT
+
+========================= */
+
 .left-block{
-  min-width:0;
+
   display:flex;
+
   flex-direction:column;
+
   justify-content:center;
+
 }
 
 .host-name{
+
   font-family:'Allura', cursive;
-  font-size:92px;
-  line-height:0.90;
-  color:var(--white);
-  margin-bottom:14px;
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
-  text-shadow: 0 2px 5px rgba(0,0,0,0.15);
+
+  font-size:24px;
+
+  color:#fff;
+
+  line-height:1;
+
 }
 
 .host-role{
-  font-size:30px;
-  line-height:1;
-  font-weight:800;
-  letter-spacing:.03em;
+
+  font-size:10px;
+
+  letter-spacing:.15em;
+
   text-transform:uppercase;
-  color:var(--white);
-  margin-bottom:12px;
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
+
+  color:#fff;
+
+  margin-top:2px;
+
 }
 
 .host-company{
-  font-size:28px;
-  line-height:1.08;
-  font-weight:500;
-  color:var(--white-soft);
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
+
+  font-size:11px;
+
+  color:rgba(255,255,255,0.85);
+
 }
 
-/* DIVIDER */
-.gold-divider{
-  width:var(--divider-width);
-  height:var(--divider-height);
-  border-radius:999px;
-  background: var(--gold);
-  justify-self:center;
-  box-shadow: 0 0 18px rgba(208,162,62,0.20);
+/* =========================
+
+   DIVIDER
+
+========================= */
+
+.divider{
+
+  width:2px;
+
+  height:40px;
+
+  background:#c9a24a;
+
 }
 
-/* CENTER */
+/* =========================
+
+   CENTER
+
+========================= */
+
 .center-block{
-  min-width:0;
+
   display:flex;
+
   flex-direction:column;
+
   justify-content:center;
+
 }
 
 .meeting-title{
-  font-size:74px;
-  line-height:0.98;
-  font-weight:800;
-  color:var(--white);
-  margin-bottom:18px;
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
+
+  font-size:20px;
+
+  font-weight:700;
+
+  color:#fff;
+
 }
 
 .guest-line{
-  font-size:34px;
-  line-height:1.05;
-  font-weight:500;
-  color:var(--white-soft);
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
+
+  font-size:12px;
+
+  color:rgba(255,255,255,0.9);
+
 }
 
 .guest-label{
-  color:var(--gold);
-  font-weight:800;
-  letter-spacing:.02em;
-  text-transform:uppercase;
+
+  color:#c9a24a;
+
+  font-weight:600;
+
 }
 
-/* RIGHT */
+/* =========================
+
+   RIGHT (LOGO)
+
+========================= */
+
 .right-block{
-  min-width:0;
+
   display:flex;
-  align-items:center;
+
   justify-content:flex-end;
+
+  align-items:center;
+
 }
+
+/* 🔥 THIS MAKES IT BIG */
 
 .right-block img{
-  display:block;
-  max-width:100%;
-  max-height:var(--logo-height);
-  object-fit:contain;
-  filter: drop-shadow(0 4px 10px rgba(0,0,0,0.16));
+
+  height:90px;
+
+  width:auto;
+
 }
 
-/* LARGE TABLET */
-@media (max-width: 1400px){
-  :root{
-    --bar-width: 94%;
-    --bar-height: 180px;
-    --left-width: 410px;
-    --divider-height: 104px;
-    --right-width: 320px;
-    --logo-height: 130px;
-  }
+/* =========================
+
+   RESPONSIVE
+
+========================= */
+
+@media (max-width:900px){
 
   .overlay-bar{
-    column-gap:28px;
-    padding:20px 28px;
+
+    grid-template-columns: 200px 2px 1fr 160px;
+
   }
 
-  .host-name{ font-size:68px; }
-  .host-role{ font-size:22px; }
-  .host-company{ font-size:22px; }
-  .meeting-title{ font-size:54px; }
-  .guest-line{ font-size:26px; }
+  .right-block img{
+
+    height:70px;
+
+  }
+
+  .host-name{
+
+    font-size:20px;
+
+  }
+
 }
 
-/* SMALLER TABLET / LANDSCAPE PHONE */
-@media (max-width: 980px){
-  :root{
-    --bar-height: 124px;
-    --left-width: 265px;
-    --divider-width: 3px;
-    --divider-height: 70px;
-    --right-width: 170px;
-    --logo-height: 86px;
-  }
-
-  .overlay-bar{
-    column-gap:18px;
-    padding:14px 18px;
-    border-radius:22px;
-  }
-
-  .host-name{ font-size:40px; margin-bottom:8px; }
-  .host-role{ font-size:14px; margin-bottom:7px; }
-  .host-company{ font-size:14px; }
-  .meeting-title{ font-size:34px; margin-bottom:10px; }
-  .guest-line{ font-size:18px; }
-}
-
-/* PHONE */
-@media (max-width: 760px){
-  :root{
-    --bar-width: 94%;
-  }
-
-  .overlay-bar{
-    grid-template-columns: 1fr;
-    row-gap:12px;
-    min-height:auto;
-    padding:16px;
-  }
-
-  .gold-divider{
-    display:none;
-  }
-
-  .right-block{
-    justify-content:flex-start;
-  }
-
-  .host-name,
-  .host-role,
-  .host-company,
-  .meeting-title,
-  .guest-line{
-    white-space:normal;
-  }
-}
 </style>
+
 </head>
+
 <body>
 
 <div class="overlay-bar">
+
   <div class="left-block">
+
     <div class="host-name">Tabitha Tittle</div>
+
     <div class="host-role">QUALIFYING BROKER</div>
+
     <div class="host-company">Leading Edge Real Estate Group</div>
+
   </div>
 
-  <div class="gold-divider"></div>
+  <div class="divider"></div>
 
   <div class="center-block">
+
     <div class="meeting-title">Office Meeting</div>
-    <div class="guest-line"><span class="guest-label">GUEST SPEAKER:</span> Add Name Here</div>
+
+    <div class="guest-line">
+
+      <span class="guest-label">GUEST SPEAKER:</span> Add Name Here
+
+    </div>
+
   </div>
 
   <div class="right-block">
-    <img src="OMLE.png?v=994" alt="Leading Edge Logo">
+
+    <img src="OMLE.png?v=994">
+
   </div>
+
 </div>
 
 </body>
+
 </html>
- 
