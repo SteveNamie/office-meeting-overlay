@@ -8,231 +8,391 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link href="https://fonts.googleapis.com/css2?family=Allura&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<title>Office Meeting Overlay</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Allura&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
 
 html, body {
 
-  margin:0;
+  margin: 0;
 
-  width:100%;
+  width: 100%;
 
-  height:100%;
+  height: 100%;
 
-  background:transparent;
+  background: transparent;
 
-  overflow:hidden;
+  overflow: hidden;
 
-  font-family:'Inter', Arial, sans-serif;
+  font-family: 'Inter', Arial, sans-serif;
 
 }
 
-/* =========================
-
-   BAR SETTINGS
-
-========================= */
+/* ===== MAIN BAR ===== */
 
 .overlay-bar {
 
-  position:fixed;
+  position: fixed;
 
-  left:50%;
+  left: 50%;
 
-  bottom:3%;
+  bottom: 3%;
 
-  transform:translateX(-50%);
+  transform: translateX(-50%);
 
-  width:88%;
+  width: 88%;
 
-  max-width:1200px;
+  max-width: 1320px;
 
-  height:70px; /* 🔥 SHORT BAR */
+  height: 76px;
 
-  display:grid;
+  padding: 0 170px 0 18px; /* extra right padding reserves room for big logo */
 
-  grid-template-columns: 240px 2px 1fr 360px;
+  box-sizing: border-box;
 
-  align-items:center;
+  display: grid;
 
-  column-gap:14px;
+  grid-template-columns: 250px 2px 1fr;
 
-  padding:0 16px;
+  align-items: center;
 
-  border-radius:16px;
+  column-gap: 16px;
 
-  /* 🔥 DARK FROSTED */
+  border-radius: 18px;
 
-  background: rgba(20,20,24,0.28);
+  background: rgba(20, 20, 24, 0.22);
 
-  border:1px solid rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.14);
 
-  -webkit-backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(18px) saturate(130%);
 
-  backdrop-filter: blur(16px);
+  backdrop-filter: blur(18px) saturate(130%);
 
-  box-shadow: 0 8px 24px rgba(0,0,0,0.20);
+  box-shadow: 0 10px 26px rgba(0,0,0,0.18);
 
-}
-
-/* =========================
-
-   LEFT
-
-========================= */
-
-.left-block{
-
-  display:flex;
-
-  flex-direction:column;
-
-  justify-content:center;
+  overflow: visible;
 
 }
 
-.host-name{
+/* subtle highlight */
 
-  font-family:'Allura', cursive;
+.overlay-bar::before {
 
-  font-size:24px;
+  content: "";
 
-  color:#fff;
+  position: absolute;
 
-  line-height:1;
+  inset: 0;
 
-}
+  border-radius: 18px;
 
-.host-role{
+  background: linear-gradient(
 
-  font-size:10px;
+    180deg,
 
-  letter-spacing:.15em;
+    rgba(255,255,255,0.10) 0%,
 
-  text-transform:uppercase;
+    rgba(255,255,255,0.03) 28%,
 
-  color:#fff;
+    rgba(255,255,255,0.00) 60%
 
-  margin-top:2px;
+  );
 
-}
-
-.host-company{
-
-  font-size:11px;
-
-  color:rgba(255,255,255,0.85);
+  pointer-events: none;
 
 }
 
-/* =========================
+/* ===== LEFT ===== */
 
-   DIVIDER
+.left-block {
 
-========================= */
+  min-width: 0;
 
-.divider{
+  display: flex;
 
-  width:2px;
+  flex-direction: column;
 
-  height:40px;
+  justify-content: center;
 
-  background:#c9a24a;
+  position: relative;
 
-}
-
-/* =========================
-
-   CENTER
-
-========================= */
-
-.center-block{
-
-  display:flex;
-
-  flex-direction:column;
-
-  justify-content:center;
+  z-index: 2;
 
 }
 
-.meeting-title{
+.host-name {
 
-  font-size:20px;
+  font-family: 'Allura', cursive;
 
-  font-weight:700;
+  font-size: 28px;
 
-  color:#fff;
+  line-height: 0.95;
 
-}
+  color: #ffffff;
 
-.guest-line{
+  margin-bottom: 3px;
 
-  font-size:12px;
+  white-space: nowrap;
 
-  color:rgba(255,255,255,0.9);
+  overflow: hidden;
 
-}
-
-.guest-label{
-
-  color:#c9a24a;
-
-  font-weight:600;
+  text-overflow: ellipsis;
 
 }
 
-/* =========================
+.host-role {
 
-   RIGHT (LOGO)
+  font-size: 10px;
 
-========================= */
+  line-height: 1.05;
 
-.right-block{
+  letter-spacing: .14em;
 
-  display:flex;
+  text-transform: uppercase;
 
-  justify-content:flex-end;
+  font-weight: 700;
 
-  align-items:center;
+  color: #ffffff;
 
-}
+  margin-bottom: 2px;
 
-/* 🔥 THIS MAKES IT BIG */
+  white-space: nowrap;
 
-.right-block img{
+  overflow: hidden;
 
-  height:180px;
-
-  width:auto;
+  text-overflow: ellipsis;
 
 }
 
-/* =========================
+.host-company {
 
-   RESPONSIVE
+  font-size: 11px;
 
-========================= */
+  line-height: 1.05;
 
-@media (max-width:900px){
+  color: rgba(255,255,255,0.88);
 
-  .overlay-bar{
+  white-space: nowrap;
 
-    grid-template-columns: 200px 2px 1fr 160px;
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+
+}
+
+/* ===== DIVIDER ===== */
+
+.divider {
+
+  width: 2px;
+
+  height: 42px;
+
+  background: #c9a24a;
+
+  border-radius: 999px;
+
+  justify-self: center;
+
+  position: relative;
+
+  z-index: 2;
+
+}
+
+/* ===== CENTER ===== */
+
+.center-block {
+
+  min-width: 0;
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: center;
+
+  position: relative;
+
+  z-index: 2;
+
+}
+
+.meeting-title {
+
+  font-size: 22px;
+
+  line-height: 1.0;
+
+  font-weight: 800;
+
+  color: #ffffff;
+
+  margin-bottom: 4px;
+
+  white-space: nowrap;
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+
+}
+
+.guest-line {
+
+  font-size: 12px;
+
+  line-height: 1.05;
+
+  color: rgba(255,255,255,0.92);
+
+  white-space: nowrap;
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+
+}
+
+.guest-label {
+
+  color: #c9a24a;
+
+  font-weight: 800;
+
+  letter-spacing: .03em;
+
+  text-transform: uppercase;
+
+}
+
+/* ===== BIG LOGO ===== */
+
+.logo-wrap {
+
+  position: absolute;
+
+  right: 18px;
+
+  top: 50%;
+
+  transform: translateY(-50%);
+
+  z-index: 3;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: flex-end;
+
+  overflow: visible;
+
+}
+
+.logo-wrap img {
+
+  display: block;
+
+  height: 118px !important;
+
+  width: auto !important;
+
+  object-fit: contain;
+
+  filter: drop-shadow(0 3px 8px rgba(0,0,0,0.16));
+
+}
+
+/* ===== RESPONSIVE ===== */
+
+@media (max-width: 1100px) {
+
+  .overlay-bar {
+
+    width: 92%;
+
+    height: 74px;
+
+    padding-right: 135px;
+
+    grid-template-columns: 220px 2px 1fr;
 
   }
 
-  .right-block img{
+  .host-name {
 
-    height:70px;
+    font-size: 24px;
 
   }
 
-  .host-name{
+  .meeting-title {
 
-    font-size:20px;
+    font-size: 19px;
+
+  }
+
+  .logo-wrap img {
+
+    height: 90px !important;
+
+  }
+
+}
+
+@media (max-width: 760px) {
+
+  .overlay-bar {
+
+    width: 94%;
+
+    height: auto;
+
+    min-height: 76px;
+
+    padding: 12px 16px;
+
+    grid-template-columns: 1fr;
+
+    row-gap: 8px;
+
+  }
+
+  .divider {
+
+    display: none;
+
+  }
+
+  .logo-wrap {
+
+    position: static;
+
+    transform: none;
+
+    justify-content: flex-start;
+
+  }
+
+  .logo-wrap img {
+
+    height: 68px !important;
+
+  }
+
+  .host-name,
+
+  .host-role,
+
+  .host-company,
+
+  .meeting-title,
+
+  .guest-line {
+
+    white-space: normal;
 
   }
 
@@ -262,17 +422,13 @@ html, body {
 
     <div class="meeting-title">Office Meeting</div>
 
-    <div class="guest-line">
-
-      <span class="guest-label">GUEST SPEAKER:</span> Add Name Here
-
-    </div>
+    <div class="guest-line"><span class="guest-label">GUEST SPEAKER:</span> Add Name Here</div>
 
   </div>
 
-  <div class="right-block">
+  <div class="logo-wrap">
 
-    <img src="OMLE.png?v=994">
+    <img src="OMLE.png?v=993" alt="Leading Edge Logo">
 
   </div>
 
