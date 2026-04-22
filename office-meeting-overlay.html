@@ -1,208 +1,189 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Office Meeting Overlay</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Allura&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Allura&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
-html, body {
-  margin: 0;
-  width: 100%;
-  height: 100%;
-  background: transparent;
-  overflow: hidden;
-  font-family: 'Inter', Arial, sans-serif;
+html, body{
+  margin:0;
+  width:100%;
+  height:100%;
+  background:transparent;
+  overflow:hidden;
+  font-family:'Inter', Arial, sans-serif;
 }
 
-.overlay-bar {
-  position: fixed;
-  left: 50%;
-  bottom: 3%;
-  transform: translateX(-50%);
-  width: 86%;
-  max-width: 1140px;
-  height: 96px;
-  padding: 0 24px;
-  box-sizing: border-box;
+:root{
+  --bar-width: 92%;
+  --bar-max-width: 1650px;
+  --bar-height: 230px;
+  --bar-bottom: 4.5%;
 
-  display: grid;
-  grid-template-columns: 300px 2px 1fr 240px;
-  align-items: center;
-  column-gap: 22px;
+  --bar-bg: rgba(22,22,24,0.46);
+  --bar-border: rgba(255,255,255,0.20);
+  --bar-shadow: 0 18px 40px rgba(0,0,0,0.28);
 
-  background: rgba(30, 30, 34, 0.22);
-  border: 1px solid rgba(255,255,255,0.14);
-  border-radius: 20px;
-  box-shadow: 0 10px 28px rgba(0,0,0,0.18);
+  --white: #ffffff;
+  --white-soft: rgba(255,255,255,0.94);
+  --gold: #d0a23e;
 
-  -webkit-backdrop-filter: blur(18px);
-  backdrop-filter: blur(18px);
+  --left-width: 560px;
+  --divider-width: 6px;
+  --divider-height: 130px;
+  --right-width: 470px;
+  --logo-height: 190px;
 }
 
-.left-block {
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+html::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:transparent;
+  pointer-events:none;
 }
 
-.host-name {
-  font-family: 'Allura', cursive;
-  font-size: 36px;
-  line-height: 0.95;
-  color: #ffffff;
-  margin-bottom: 5px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+.overlay-bar{
+  position:fixed;
+  left:50%;
+  bottom:var(--bar-bottom);
+  transform:translateX(-50%);
+  width:var(--bar-width);
+  max-width:var(--bar-max-width);
+  min-height:var(--bar-height);
+  box-sizing:border-box;
+
+  display:grid;
+  grid-template-columns: var(--left-width) var(--divider-width) 1fr var(--right-width);
+  align-items:center;
+  column-gap:42px;
+
+  padding: 26px 42px;
+  border-radius: 34px;
+  overflow:hidden;
+
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0.02) 18%, rgba(255,255,255,0.00) 45%),
+    rgba(22,22,24,0.46);
+
+  border:1px solid var(--bar-border);
+  box-shadow: var(--bar-shadow);
+
+  -webkit-backdrop-filter: blur(24px) saturate(135%);
+  backdrop-filter: blur(24px) saturate(135%);
 }
 
-.host-role {
-  font-size: 11px;
-  line-height: 1.1;
-  letter-spacing: .16em;
-  text-transform: uppercase;
-  color: #ffffff;
-  margin-bottom: 4px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+.overlay-bar::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:34px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.12);
+  pointer-events:none;
 }
 
-.host-company {
-  font-size: 12px;
-  line-height: 1.1;
-  color: rgba(255,255,255,0.92);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+/* LEFT */
+.left-block{
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
 }
 
-.gold-divider {
-  width: 2px;
-  height: 52px;
-  background: #c9a24a;
-  border-radius: 999px;
-  justify-self: center;
+.host-name{
+  font-family:'Allura', cursive;
+  font-size:92px;
+  line-height:0.90;
+  color:var(--white);
+  margin-bottom:14px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  text-shadow: 0 2px 5px rgba(0,0,0,0.15);
 }
 
-.center-block {
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+.host-role{
+  font-size:30px;
+  line-height:1;
+  font-weight:800;
+  letter-spacing:.03em;
+  text-transform:uppercase;
+  color:var(--white);
+  margin-bottom:12px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
 }
 
-.meeting-title {
-  font-size: 24px;
-  line-height: 1.05;
-  font-weight: 700;
-  color: #ffffff;
-  margin-bottom: 5px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+.host-company{
+  font-size:28px;
+  line-height:1.08;
+  font-weight:500;
+  color:var(--white-soft);
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
 }
 
-.guest-line {
-  font-size: 13px;
-  line-height: 1.1;
-  color: rgba(255,255,255,0.92);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+/* DIVIDER */
+.gold-divider{
+  width:var(--divider-width);
+  height:var(--divider-height);
+  border-radius:999px;
+  background: var(--gold);
+  justify-self:center;
+  box-shadow: 0 0 18px rgba(208,162,62,0.20);
 }
 
-.guest-label {
-  color: #c9a24a;
-  font-weight: 700;
-  letter-spacing: .08em;
-  text-transform: uppercase;
+/* CENTER */
+.center-block{
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
 }
 
-.right-block {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  min-width: 0;
+.meeting-title{
+  font-size:74px;
+  line-height:0.98;
+  font-weight:800;
+  color:var(--white);
+  margin-bottom:18px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
 }
 
-.right-block img {
-  display: block;
-  max-width: 100%;
-  max-height: 92px;
-  object-fit: contain;
+.guest-line{
+  font-size:34px;
+  line-height:1.05;
+  font-weight:500;
+  color:var(--white-soft);
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
 }
 
-@media (max-width: 1000px) {
-  .overlay-bar {
-    width: 92%;
-    grid-template-columns: 250px 2px 1fr 170px;
-  }
-
-  .host-name {
-    font-size: 28px;
-  }
-
-  .meeting-title {
-    font-size: 21px;
-  }
-
-  .right-block img {
-    max-height: 72px;
-  }
+.guest-label{
+  color:var(--gold);
+  font-weight:800;
+  letter-spacing:.02em;
+  text-transform:uppercase;
 }
 
-@media (max-width: 760px) {
-  .overlay-bar {
-    width: 94%;
-    height: auto;
-    padding: 14px 16px;
-    grid-template-columns: 1fr;
-    row-gap: 8px;
-  }
-
-  .gold-divider {
-    display: none;
-  }
-
-  .right-block {
-    justify-content: flex-start;
-  }
-
-  .host-name,
-  .host-role,
-  .host-company,
-  .meeting-title,
-  .guest-line {
-    white-space: normal;
-  }
+/* RIGHT */
+.right-block{
+  min-width:0;
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
 }
-</style>
-</head>
-<body>
 
-<div class="overlay-bar">
-  <div class="left-block">
-    <div class="host-name">Tabitha Tittle</div>
-    <div class="host-role">Qualifying Broker</div>
-    <div class="host-company">Leading Edge Real Estate Group</div>
-  </div>
-
-  <div class="gold-divider"></div>
-
-  <div class="center-block">
-    <div class="meeting-title">Office Meeting</div>
-    <div class="guest-line"><span class="guest-label">Guest Speaker:</span> Add Name Here</div>
-  </div>
-
-  <div class="right-block">
-    <img src="OMLE.png?v=995" alt="Leading Edge Logo">
-  </div>
-</div>
-
-</body>
-</html>
+.right-block img{
+  display:block;
+  max-width:100%;
+  max-height:var(--logo-height);
+ 
