@@ -186,4 +186,109 @@ html::before{
   display:block;
   max-width:100%;
   max-height:var(--logo-height);
+  object-fit:contain;
+  filter: drop-shadow(0 4px 10px rgba(0,0,0,0.16));
+}
+
+/* LARGE TABLET */
+@media (max-width: 1400px){
+  :root{
+    --bar-width: 94%;
+    --bar-height: 180px;
+    --left-width: 410px;
+    --divider-height: 104px;
+    --right-width: 320px;
+    --logo-height: 130px;
+  }
+
+  .overlay-bar{
+    column-gap:28px;
+    padding:20px 28px;
+  }
+
+  .host-name{ font-size:68px; }
+  .host-role{ font-size:22px; }
+  .host-company{ font-size:22px; }
+  .meeting-title{ font-size:54px; }
+  .guest-line{ font-size:26px; }
+}
+
+/* SMALLER TABLET / LANDSCAPE PHONE */
+@media (max-width: 980px){
+  :root{
+    --bar-height: 124px;
+    --left-width: 265px;
+    --divider-width: 3px;
+    --divider-height: 70px;
+    --right-width: 170px;
+    --logo-height: 86px;
+  }
+
+  .overlay-bar{
+    column-gap:18px;
+    padding:14px 18px;
+    border-radius:22px;
+  }
+
+  .host-name{ font-size:40px; margin-bottom:8px; }
+  .host-role{ font-size:14px; margin-bottom:7px; }
+  .host-company{ font-size:14px; }
+  .meeting-title{ font-size:34px; margin-bottom:10px; }
+  .guest-line{ font-size:18px; }
+}
+
+/* PHONE */
+@media (max-width: 760px){
+  :root{
+    --bar-width: 94%;
+  }
+
+  .overlay-bar{
+    grid-template-columns: 1fr;
+    row-gap:12px;
+    min-height:auto;
+    padding:16px;
+  }
+
+  .gold-divider{
+    display:none;
+  }
+
+  .right-block{
+    justify-content:flex-start;
+  }
+
+  .host-name,
+  .host-role,
+  .host-company,
+  .meeting-title,
+  .guest-line{
+    white-space:normal;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="overlay-bar">
+  <div class="left-block">
+    <div class="host-name">Tabitha Tittle</div>
+    <div class="host-role">QUALIFYING BROKER</div>
+    <div class="host-company">Leading Edge Real Estate Group</div>
+  </div>
+
+  <div class="gold-divider"></div>
+
+  <div class="center-block">
+    <div class="meeting-title">Office Meeting</div>
+    <div class="guest-line"><span class="guest-label">GUEST SPEAKER:</span> Add Name Here</div>
+  </div>
+
+  <div class="right-block">
+    <img src="OMLE.png?v=994" alt="Leading Edge Logo">
+  </div>
+</div>
+
+</body>
+</html>
  
