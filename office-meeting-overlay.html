@@ -19,23 +19,23 @@ html, body{
 
 :root{
   --bar-width: 86%;
-  --bar-max-width: 1120px;
-  --bar-height: 88px;
-  --bar-bottom: 4%;
+  --bar-max-width: 1140px;
+  --bar-height: 96px;
+  --bar-bottom: 3.2%;
 
-  /* darker frosted bar */
-  --bar-bg: rgba(28, 28, 30, 0.42);
-  --bar-border: rgba(255,255,255,0.10);
-  --bar-shadow: 0 10px 28px rgba(0,0,0,0.24);
+  /* more transparent frosted dark gray */
+  --bar-bg: rgba(40, 40, 44, 0.26);
+  --bar-border: rgba(255,255,255,0.14);
+  --bar-shadow: 0 10px 28px rgba(0,0,0,0.18);
 
   --text-main: #ffffff;
   --text-soft: rgba(255,255,255,0.92);
   --gold: #c9a24a;
 
-  --left-width: 285px;
-  --right-width: 190px;
-  --divider-height: 50px;
-  --logo-height: 72px;
+  --left-width: 300px;
+  --right-width: 230px;
+  --divider-height: 52px;
+  --logo-height: 92px;
 }
 
 .overlay-bar{
@@ -45,36 +45,37 @@ html, body{
   transform:translateX(-50%);
   width:var(--bar-width);
   max-width:var(--bar-max-width);
-  height:var(--bar-height);
+  min-height:var(--bar-height);
 
   display:grid;
   grid-template-columns: var(--left-width) 2px 1fr var(--right-width);
   align-items:center;
-  column-gap:20px;
+  column-gap:22px;
 
   padding:0 24px;
   box-sizing:border-box;
 
-  border-radius:18px;
+  border-radius:20px;
   border:1px solid var(--bar-border);
   background:var(--bar-bg);
   box-shadow:var(--bar-shadow);
 
-  -webkit-backdrop-filter: blur(16px) saturate(135%);
-  backdrop-filter: blur(16px) saturate(135%);
+  -webkit-backdrop-filter: blur(18px) saturate(135%);
+  backdrop-filter: blur(18px) saturate(135%);
 }
 
-/* subtle top sheen */
+/* light frosted sheen */
 .overlay-bar::before{
   content:"";
   position:absolute;
   inset:0;
-  border-radius:18px;
+  border-radius:20px;
   background:linear-gradient(
     180deg,
-    rgba(255,255,255,0.10) 0%,
-    rgba(255,255,255,0.03) 22%,
-    rgba(255,255,255,0.00) 55%
+    rgba(255,255,255,0.12) 0%,
+    rgba(255,255,255,0.04) 22%,
+    rgba(255,255,255,0.01) 55%,
+    rgba(255,255,255,0.00) 100%
   );
   pointer-events:none;
 }
@@ -185,68 +186,4 @@ html, body{
 /* tablet */
 @media (max-width: 1000px){
   :root{
-    --bar-width: 92%;
-    --left-width: 245px;
-    --right-width: 150px;
-    --logo-height: 140px;
-  }
-
-  .host-name{ font-size:24px; }
-  .meeting-title{ font-size:21px; }
-}
-
-/* phone */
-@media (max-width: 760px){
-  :root{
-    --bar-width: 94%;
-    --bar-height: auto;
-  }
-
-  .overlay-bar{
-    grid-template-columns: 1fr;
-    row-gap:8px;
-    height:auto;
-    padding:12px 16px;
-  }
-
-  .gold-divider{
-    display:none;
-  }
-
-  .right-block{
-    justify-content:flex-start;
-  }
-
-  .host-name,
-  .host-role,
-  .host-company,
-  .meeting-title,
-  .guest-line{
-    white-space:normal;
-  }
-}
-</style>
-</head>
-<body>
-
-<div class="overlay-bar">
-  <div class="left-block">
-    <div class="host-name">Tabitha Tittle</div>
-    <div class="host-role">Qualifying Broker</div>
-    <div class="host-company">Leading Edge Real Estate Group</div>
-  </div>
-
-  <div class="gold-divider"></div>
-
-  <div class="center-block">
-    <div class="meeting-title">Office Meeting</div>
-    <div class="guest-line"><span class="guest-label">Guest Speaker:</span> Add Name Here</div>
-  </div>
-
-  <div class="right-block">
-    <img src="OMLE.png?v=997" alt="Leading Edge Logo">
-  </div>
-</div>
-
-</body>
-</html>
+    --bar
